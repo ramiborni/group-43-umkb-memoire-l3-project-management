@@ -2,13 +2,14 @@ import Head from 'next/head'
 import mainTitle from '../../../configs/mainTitle';
 
 const GeneralHead = ({title} : {
-    title: string
+    title: string | undefined
 }) => {
+    console.log(title)
     return (
         <div>
             <Head>
                 <title>{
-                    (title === "Rakm Conseil") ? title : mainTitle + title
+                    (title!=='Rakm Conseil') ? mainTitle + title : title
                 }</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
@@ -16,7 +17,7 @@ const GeneralHead = ({title} : {
         </div>
     );
 }
-GeneralHead.propTypes = {
+GeneralHead.defaultProps = {
     title: 'Rakm Conseil'
 }
 export default GeneralHead;

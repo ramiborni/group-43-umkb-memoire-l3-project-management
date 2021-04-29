@@ -4,7 +4,7 @@ import GeneralHead from "../public/heads/GeneralHead"
 const LoginLayout = ({child} : {child:ReactNode}) => {
     return (
         <>
-        <GeneralHead title="Login"></GeneralHead>
+        <GeneralHead></GeneralHead>
         <main>
             {child}
         </main>
