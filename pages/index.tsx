@@ -1,4 +1,5 @@
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import LoginLayout from '../components/layouts/LoginLayout'
 import styles from '../styles/Home.module.css'
@@ -18,3 +19,9 @@ export default function Home() {
         }/>
     )
 }
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'footer']),
+  }
+})

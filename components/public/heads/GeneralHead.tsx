@@ -4,7 +4,8 @@ import mainTitle from '../../../configs/mainTitle';
 const GeneralHead = ({title} : {
     title: string | undefined
 }) => {
-    console.log(title)
+    
+
     return (
         <div>
             <Head>
