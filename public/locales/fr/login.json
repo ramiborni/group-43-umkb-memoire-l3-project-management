@@ -1,0 +1,10 @@
+{
+    "login":"Identification",
+    "welcome": "Bienvenu en Rakm Conseil",
+    "username": "Nom d'utilisateur",
+    "password":"Mot de passe",
+    "forgot_password": "Mot de passe oublié?",
+    "change-locale":"Changer la langue?",
+    "empty-form":"Veuillez vous assurer de remplir tous les champs pour vous connecter"
+
+}

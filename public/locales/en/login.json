@@ -1,0 +1,12 @@
+{
+    "login":"Login",
+    "welcome": "Welcome back to Rakm Conseil",
+    "username": "Username",
+    "password": "Password",
+    "forgot_password": "Forgot Password?",
+    "change-locale":"Change the language?",
+    "empty-form":"Please make sure you fill all fields to login"
+
+
+
+}

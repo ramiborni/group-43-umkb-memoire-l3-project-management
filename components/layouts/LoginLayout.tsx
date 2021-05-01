@@ -9,13 +9,14 @@ import {useRouter} from "next/dist/client/router"
 const LoginLayout = ({child} : {
     child: ReactNode
 }) => {
-    const router = useRouter()
 
     const {t} = useTranslation('common')
     return (
-        <div>
-
-        </div>
+        <>
+        <main className={LoginStyles.root}>
+              {child}    
+        </main>
+        </>
     )
 }
 
