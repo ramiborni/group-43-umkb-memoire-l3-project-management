@@ -80,10 +80,17 @@
   dependencies:
     "@hapi/hoek" "9.x.x"
 
-"@hapi/hoek@9.x.x":
+"@hapi/hoek@^9.0.0", "@hapi/hoek@9.x.x":
   "integrity" "sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug=="
   "resolved" "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.2.0.tgz"
   "version" "9.2.0"
+
+"@hapi/topo@^5.0.0":
+  "integrity" "sha512-tFJlT47db0kMqVm3H4nQYgn6Pwg10GTZHb1pwmSiv1K4ks6drQOtfEF5ZnPjkvC+y4/bUPHK+bc87QvLcL+WMw=="
+  "resolved" "https://registry.npmjs.org/@hapi/topo/-/topo-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
 
 "@headlessui/react@^1.1.1":
   "integrity" "sha512-fxNKxRrjNXdNYNMhAVrv1nz0gIMX3JhFizTA9lNrEC8+aY3JR00GZTPhuG785RZGvnHXCdYCGHeAhqw9uRNRrA=="
@@ -159,6 +166,23 @@
   "integrity" "sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw=="
   "resolved" "https://registry.npmjs.org/@opentelemetry/context-base/-/context-base-0.14.0.tgz"
   "version" "0.14.0"
+
+"@sideway/address@^4.1.0":
+  "integrity" "sha512-+I5aaQr3m0OAmMr7RQ3fR9zx55sejEYR2BFJaxL+zT3VM2611X0SHvPWIbAUBZVTn/YzYKbV8gJ2oT/QELknfQ=="
+  "resolved" "https://registry.npmjs.org/@sideway/address/-/address-4.1.1.tgz"
+  "version" "4.1.1"
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
+
+"@sideway/formula@^3.0.0":
+  "integrity" "sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg=="
+  "resolved" "https://registry.npmjs.org/@sideway/formula/-/formula-3.0.0.tgz"
+  "version" "3.0.0"
+
+"@sideway/pinpoint@^2.0.0":
+  "integrity" "sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ=="
+  "resolved" "https://registry.npmjs.org/@sideway/pinpoint/-/pinpoint-2.0.0.tgz"
+  "version" "2.0.0"
 
 "@types/hoist-non-react-statics@^3.3.1":
   "integrity" "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA=="
@@ -1373,6 +1397,17 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
+"joi@^17.3.0":
+  "integrity" "sha512-F4WiW2xaV6wc1jxete70Rw4V/VuMd6IN+a5ilZsxG4uYtUXWu2kq9W5P2dz30e7Gmw8RCbY/u/uk+dMPma9tAg=="
+  "resolved" "https://registry.npmjs.org/joi/-/joi-17.4.0.tgz"
+  "version" "17.4.0"
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
+    "@hapi/topo" "^5.0.0"
+    "@sideway/address" "^4.1.0"
+    "@sideway/formula" "^3.0.0"
+    "@sideway/pinpoint" "^2.0.0"
+
 "js-tokens@^3.0.0 || ^4.0.0", "js-tokens@^4.0.0":
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
   "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -1424,7 +1459,7 @@
   "resolved" "https://registry.npmjs.org/lodash.topath/-/lodash.topath-4.5.2.tgz"
   "version" "4.5.2"
 
-"lodash@^4.17.13", "lodash@^4.17.21":
+"lodash@^4.17.13", "lodash@^4.17.15", "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -2067,7 +2102,7 @@
   dependencies:
     "picomatch" "^2.2.1"
 
-"reduce-css-calc@^2.1.8":
+"reduce-css-calc@^2.1.6", "reduce-css-calc@^2.1.8":
   "integrity" "sha512-8liAVezDmUcH+tdzoEGrhfbGcP7nOV4NkGE3a74+qqvE7nt9i4sKLGBuZNOnpI4WiGksiNPklZxva80061QiPg=="
   "resolved" "https://registry.npmjs.org/reduce-css-calc/-/reduce-css-calc-2.1.8.tgz"
   "version" "2.1.8"
@@ -2334,7 +2369,16 @@
   dependencies:
     "has-flag" "^4.0.0"
 
-"tailwindcss@^2.1.2":
+"tailwind-bootstrap-grid@^3.3.0":
+  "integrity" "sha512-Dut7J3eIufHy5zEzfV3yAyc9Y5TEXScB31PAVTh20sl8a8ny/O988TsWhGRipOErlavm2imAVLlog3frg8E4AA=="
+  "resolved" "https://registry.npmjs.org/tailwind-bootstrap-grid/-/tailwind-bootstrap-grid-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "joi" "^17.3.0"
+    "lodash" "^4.17.15"
+    "reduce-css-calc" "^2.1.6"
+
+"tailwindcss@^2 || ^1 || ^1.0.0-beta", "tailwindcss@^2.1.2":
   "integrity" "sha512-T5t+wwd+/hsOyRw2HJuFuv0LTUm3MUdHm2DJ94GPVgzqwPPFa9XxX0KlwLWupUuiOUj6uiKURCzYPHFcuPch/w=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-2.1.2.tgz"
   "version" "2.1.2"

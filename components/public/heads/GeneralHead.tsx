@@ -10,7 +10,7 @@ const GeneralHead = ({title} : {
         <div>
             <Head>
                 <title>{
-                    (title!=='Rakm Conseil') ? mainTitle + title : title
+                    (title!=='Rakm Conseil') ? title + mainTitle  : title
                 }</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>

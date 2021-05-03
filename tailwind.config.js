@@ -5,7 +5,13 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['active'],
+    }
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-bootstrap-grid')({
+      containerMaxWidths: { sm: '640px', md: '768px', lg: '1024px', xl: '1280px' },
+    }),
+  ],
 }

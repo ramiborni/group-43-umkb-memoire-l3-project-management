@@ -6,7 +6,7 @@ const PrimaryButton = ({text, click} : {
         <button onClick={
               (e) => click()
             }
-            className="focus:outline-none h-10 w-full bg-purple-500 shadow-lg hover:shadow-xl transition ease-in duration-200 focus:bg-purple-600 text-white rounded">
+            className="focus:outline-none h-10 w-full bg-purple-500 shadow-lg hover:shadow-xl ease-linear transition-all duration-150 active:bg-purple-700 text-white rounded">
             {text} </button>
     );
 }
