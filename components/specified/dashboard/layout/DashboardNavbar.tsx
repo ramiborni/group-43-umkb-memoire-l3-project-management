@@ -1,6 +1,6 @@
 import {BellIcon, SearchIcon} from "@heroicons/react/outline";
 import {CogIcon} from "@heroicons/react/outline";
-import { useTranslation } from "next-i18next";
+import {useTranslation} from "next-i18next";
 import Link from "next/link";
 import React from "react";
 import NavBarButton from "../../../public/buttons/NavBarButton";
@@ -15,16 +15,19 @@ const DashboardNavbar = ({locale, drawer, setOpenDrawer} : {
 
 
     return (
-        <header className="z-30 py-7 h-24 bg-white dark:bg-gray-800">
-            <div className="container flex flex-row items-center justify-center text-gray-700 dark:text-purple-300">
-                    <div className="flex flex-1 space-x-5">
+        <header className="z-30 py-7 h-20 bg-white dark:bg-gray-800">
+            <div className="container -my-2 flex flex-row items-center justify-center text-gray-700 dark:text-purple-300">
+                <div className="flex flex-1 space-x-5">
                     <NavBarButton size="h-6"
                         click={
                             () => setOpenDrawer(!drawer)
                         }/>
-                        <h1 className="text-lg font-bold hidden lg:block">{t('dashboard')}</h1>
-                    </div>
-                    <div className="hidden md:flex pr-5 lg:pr">
+                    <h1 className="text-lg font-bold hidden lg:block">
+                        {
+                        t('dashboard')
+                    }</h1>
+                </div>
+                <div className="hidden md:flex pr-5 lg:pr">
                     <OutlinedFilledRoundedTextField updateText={
                             () => null
                         }
@@ -36,14 +39,18 @@ const DashboardNavbar = ({locale, drawer, setOpenDrawer} : {
                             <SearchIcon
                         className="h-5 w-5"/>
                         }/>
-                    </div>
+                </div>
 
                 <ul className="flex flex-1 items-center justify-end flex-shrink-0 space-x-6">
                     <li className="relative">
-                        <Link href="/dashboard" locale={locale}>
-                         <button className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple" aria-label="Notifications" aria-haspopup="true">
-                           <h1 className="font-bold hover:text-purple-400 transition duration-200">{locale.toUpperCase()}</h1>
-                         </button>
+                        <Link href="/dashboard"
+                            locale={locale}>
+                            <button className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple" aria-label="Notifications" aria-haspopup="true">
+                                <h1 className="font-bold hover:text-purple-400 transition duration-200">
+                                    {
+                                    locale.toUpperCase()
+                                }</h1>
+                            </button>
                         </Link>
                     </li>
                     <li className="relative">
@@ -56,7 +63,13 @@ const DashboardNavbar = ({locale, drawer, setOpenDrawer} : {
                     <li className="relative">
                         <button className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
                             <CogIcon className="h-6 w-6 hover:text-purple-400 transition duration-200"/>
-                        </button>                        
+                        </button>
+                    </li>
+                    <li className="relative">
+                        <button className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
+                            <img height="40" width="40" className="rounded-3xl flex-initial"
+                                src={'/icons/default-avatar.jpg'}/>
+                        </button>
                     </li>
                 </ul>
             </div>

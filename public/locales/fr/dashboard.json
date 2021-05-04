@@ -1,6 +1,8 @@
 {
-    "dashboard":"Tableau de bord",
-    "search":"Recherche",
-    "view-profile":"Voir le profile"
+    "dashboard": "Tableau de bord",
+    "search": "Recherche",
+    "view-profile": "Voir le profile",
+    "welcome": "Bienvenu en tableau de bord de Rakm Conseil",
+    "welcome-more": "Nous vous souhaitons une bonne journée et nous vous conseillons de revoir les projets et de vérifier les rapports, demandes, ainsi que les notifications en haut de page"
 
 }

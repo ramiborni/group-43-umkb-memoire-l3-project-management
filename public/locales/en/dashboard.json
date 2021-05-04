@@ -1,5 +1,7 @@
 {
     "dashboard":"Dashboard",
     "search":"Search",
-    "view-profile":"View profile"
+    "view-profile":"View profile",
+    "welcome":"Welcome in Rakm Conseil's dashboard,",
+    "welcome-more":"We wish you a nice day and we advise you to review projects and check reports, requests, as well as notifications at the top of the page"
 }

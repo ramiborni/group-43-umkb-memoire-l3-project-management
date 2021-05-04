@@ -37,7 +37,7 @@ const DashboardLayout = ({children}:{children:ReactNode}) => {
     return (
        <>
        <GeneralHead title={t('dashboard')}></GeneralHead>
-       <motion.div className={( openDrawer && isMobile ? 'overflow-hidden':'')+" flex h-screen bg-gray-50 dark:bg-gray-900"} initial="hidden" animate="visible" variants={{
+       <motion.div className={( openDrawer && isMobile ? 'overflow-hidden':'')+" flex h-screen bg-gray-50"} initial="hidden" animate="visible" variants={{
             hidden: {
               opacity: 0
             },
@@ -50,14 +50,12 @@ const DashboardLayout = ({children}:{children:ReactNode}) => {
           }}>
                 <DashboardSideBar drawer={openDrawer}></DashboardSideBar>
                 <div className={(!openDrawer && isMobile ? 'opacity-0 z-20' : 'z-10') + " lg:hidden fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"}></div>
-                <div className="flex flex-1 flex-col">
+                <div className="flex flex-1 flex-col w-full ">
                   <DashboardNavbar locale={router.locale=="en" ? "fr" : "en"} drawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
-                  <main className={!openDrawer ?"z-20":"z-0"}>
+                  <main className={!openDrawer ?"z-20":"z-0" + " container px-4 lg:px-10 "}>
                   {children}
                   </main>
-        
-                
-            </div>
+                 </div>
         </motion.div>
        </>
        
