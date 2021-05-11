@@ -15,6 +15,9 @@
 .infoText{
   color: #33b5e5 !important;
 }
+.infoDarkText{
+  color: #0d47a1 !important;
+}
 .bgText{
   color: rgb(183, 184, 185) !important;
 }
@@ -26,6 +29,12 @@
       display:none;
     }
 }
+@media screen and (min-width: 993px) {
+  .show-only-mobile{
+    display:none;
+  }
+}
+
 
 
 .is-borderless {
