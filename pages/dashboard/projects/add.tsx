@@ -1,3 +1,4 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import InfoCard from "../../../components/public/InfoCard";

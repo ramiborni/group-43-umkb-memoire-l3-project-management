@@ -2,7 +2,13 @@ import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
-import {Button, Col, Row, Tag} from "rsuite";
+import {
+    Button,
+    Col,
+    Nav,
+    Row,
+    Tag
+} from "rsuite";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import InfoCard from "../../../components/public/InfoCard";
 import OverViewCard from "../../../components/specified/dashboard/projects/index/OverViewCard";
@@ -32,7 +38,11 @@ const index = () => {
                     className={
                         UtilStyle['has-padding-25']
                 }>
-                    <OverViewCard num={inProgressProjects.length} title="Current Projects" color="primary"/>
+                    <OverViewCard num={
+                            inProgressProjects.length
+                        }
+                        title="Current Projects"
+                        color="primary"/>
                 </Col>
                 <Col xs={24}
                     md={8}
@@ -40,7 +50,11 @@ const index = () => {
                     className={
                         UtilStyle['has-padding-25']
                 }>
-                    <OverViewCard num={finishedProjects.length} title="Completed Projects" color="success"/>
+                    <OverViewCard num={
+                            finishedProjects.length
+                        }
+                        title="Completed Projects"
+                        color="success"/>
                 </Col>
                 <Col xs={24}
                     md={8}
@@ -48,10 +62,19 @@ const index = () => {
                     className={
                         UtilStyle['has-padding-25']
                 }>
-                    <OverViewCard num={2} title="Clients" color="info"/>
+                    <OverViewCard num={2}
+                        title="Clients"
+                        color="info"/>
                 </Col>
             </Row>
-            
+
+            <Nav>
+                <Nav.Item eventKey="home">
+                    Home
+                </Nav.Item>
+                <Nav.Item eventKey="news">News</Nav.Item>
+            </Nav>
+
         </DashboardLayout>
     );
 
