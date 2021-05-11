@@ -1,12 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 
 html, body {
     height: 100%;
     margin : 0;
     font-family: 'Poppins', sans-serif !important;
-    background-color: rgb(249, 250, 251) !important;	
+    background-color: rgb(249, 250, 251);	
+}
+
+.rs-navbar.rs-navbar-default {
+    background-color: #ffffff;
 }

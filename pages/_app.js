@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import {appWithTranslation} from 'next-i18next'
-import 'tailwindcss/tailwind.css'
+import 'rsuite/lib/styles/index.less';
 
 function MyApp({Component, pageProps}) {
     return <Component  {...pageProps} />

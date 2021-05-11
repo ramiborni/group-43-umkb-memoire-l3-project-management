@@ -3,41 +3,39 @@ import { motion } from "framer-motion";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
-import dashboardLayoutStyles from "../../styles/components/DashboardLayout.module.css"
+import { Container, Content, Footer, Header, Sidebar } from "rsuite";
 import GeneralHead from "../public/heads/GeneralHead";
 import DashboardNavbar from "../specified/dashboard/layout/DashboardNavbar";
 import DashboardSideBar from "../specified/dashboard/layout/DashboardSideBar";
+import UtilStyle from '../../styles/Utilities.module.css'
 
 const DashboardLayout = ({children}:{children:ReactNode}) => {
-    const router= useRouter()
-    const [openDrawer, setOpenDrawer] = useState<boolean>(false)
-    const [isMobile,setIsMobile] = useState<boolean>(false)
     const {t} = useTranslation('dashboard')
-    
-      useEffect(() => {
-        if (typeof window !== 'undefined') {
-          // Handler to call on window resize
-          const handleResize = () => {
-            if(window.innerWidth>=1024){
-               setOpenDrawer(true)     
-               setIsMobile(false)
+    const router= useRouter()
+    const [expanded,setExpanded] = useState(true)
+    const [isMobile,setIsMobile] = useState(false)
 
-            }else{
-              setIsMobile(true)
-            }        
-          }
-        
-          window.addEventListener("resize", handleResize);
-         
-          handleResize();
-        
-        }})
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        // Handler to call on window resize
+        const handleResize = () => {
+          if(window.innerWidth<1024){
+            setExpanded(false)     
+          }      
+        }
+      
+        window.addEventListener("resize", handleResize);
+       
+        handleResize();
+      
+      }})
 
 
     return (
        <>
+       
        <GeneralHead title={t('dashboard')}></GeneralHead>
-       <motion.div className={( openDrawer && isMobile ? 'overflow-hidden':'')+" flex h-screen bg-gray-50"} initial="hidden" animate="visible" variants={{
+       <motion.div initial="hidden" animate="visible" variants={{
             hidden: {
               opacity: 0
             },
@@ -48,14 +46,17 @@ const DashboardLayout = ({children}:{children:ReactNode}) => {
               }
             },
           }}>
-                <DashboardSideBar drawer={openDrawer}></DashboardSideBar>
-                <div className={(!openDrawer && isMobile ? 'opacity-0 z-20' : 'z-10') + " lg:hidden fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"}></div>
-                <div className="flex flex-1 flex-col w-full ">
-                  <DashboardNavbar locale={router.locale=="en" ? "fr" : "en"} drawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
-                  <main className={!openDrawer ?"z-20":"z-0" + " container px-4 lg:px-10 "}>
-                  {children}
-                  </main>
-                 </div>
+            <Container>
+              <Sidebar             width={expanded ? 230 : 56}
+            collapsible>
+                <DashboardSideBar expanded={expanded}/>
+              </Sidebar>
+              <Container>
+                 <Header   className={`${UtilStyle['has-padding-15']}`}><DashboardNavbar expanded={expanded} setExpanded={setExpanded} locale={router.locale}/></Header>
+                 <Content className={`${UtilStyle['has-padding-25']}`} style={{backgroundColor:'rgb(249, 250, 251)'}}>{children}</Content>
+              </Container>
+            </Container>
+               
         </motion.div>
        </>
        

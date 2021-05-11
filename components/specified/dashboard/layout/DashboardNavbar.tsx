@@ -1,79 +1,108 @@
-import {BellIcon, SearchIcon} from "@heroicons/react/outline";
-import {CogIcon} from "@heroicons/react/outline";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
-import React from "react";
-import NavBarButton from "../../../public/buttons/NavBarButton";
-import OutlinedFilledRoundedTextField from "../../../public/inputs/OutlinedFilledRoundedTextField";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import {
+    Avatar,
+    Button,
+    Icon,
+    IconButton,
+    Nav,
+    Navbar,
+    Row
+} from "rsuite";
+import UtilStyle from '../../../../styles/Utilities.module.css'
 
-const DashboardNavbar = ({locale, drawer, setOpenDrawer} : {
+const DashboardNavbar = ({locale, expanded, setExpanded} : {
     locale: string,
-    drawer: boolean,
-    setOpenDrawer: React.Dispatch < React.SetStateAction < boolean >>
+    expanded: boolean,
+    setExpanded: Dispatch < SetStateAction < boolean >>
 }) => {
     const {t} = useTranslation('dashboard')
+    const [isMobile,setIsMobile] = useState(false)
+
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        // Handler to call on window resize
+        const handleResize = () => {
+          if(window.innerWidth<1024){
+            setIsMobile(true)     
+          }else{
+            setIsMobile(false)       
+          }
+        }
+      
+        window.addEventListener("resize", handleResize);
+       
+        handleResize();
+      
+      }})
 
 
     return (
-        <header className="z-30 py-7 h-20 bg-white dark:bg-gray-800">
-            <div className="container -my-2 flex flex-row items-center justify-center text-gray-700 dark:text-purple-300">
-                <div className="flex flex-1 space-x-5">
-                    <NavBarButton size="h-6"
-                        click={
-                            () => setOpenDrawer(!drawer)
-                        }/>
-                    <h1 className="text-lg font-bold hidden lg:block">
-                        {
-                        t('dashboard')
-                    }</h1>
-                </div>
-                <div className="hidden md:flex pr-5 lg:pr">
-                    <OutlinedFilledRoundedTextField updateText={
-                            () => null
-                        }
-                        placeholder={
-                            t('search')
-                        }
-                        type="search"
-                        icon={
-                            <SearchIcon
-                        className="h-5 w-5"/>
-                        }/>
-                </div>
+        <Navbar style={
+            {
+                backgroundColor: 'white !important',
+                alignItems: 'center'
+            }
+        }>
+            <Navbar.Header style={
+                    {marginTop: '10px'}
+                }
+                className={
+                    ( !expanded && isMobile ? UtilStyle.hide : '') + ` ${
+                        UtilStyle['has-margin-right-15']
+                    }`
+            }>
+                <IconButton onClick={
+                        () => setExpanded(!expanded)
+                    }
+                    appearance="subtle"
+                    size="lg"
+                    icon={
+                        <Icon
+                    icon="bars"/>
+                }></IconButton>
+            </Navbar.Header>
 
-                <ul className="flex flex-1 items-center justify-end flex-shrink-0 space-x-6">
-                    <li className="relative">
-                        <Link href="/dashboard"
-                            locale={locale}>
-                            <button className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple" aria-label="Notifications" aria-haspopup="true">
-                                <h1 className="font-bold hover:text-purple-400 transition duration-200">
-                                    {
-                                    locale.toUpperCase()
-                                }</h1>
-                            </button>
-                        </Link>
-                    </li>
-                    <li className="relative">
-                        <button className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple" aria-label="Notifications" aria-haspopup="true">
+            <Navbar.Header>
 
-                            <BellIcon className="h-6 w-6 hover:text-purple-400 transition duration-200"/>
-                            <span aria-hidden="true" className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
-                        </button>
-                    </li>
-                    <li className="relative">
-                        <button className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
-                            <CogIcon className="h-6 w-6 hover:text-purple-400 transition duration-200"/>
-                        </button>
-                    </li>
-                    <li className="relative">
-                        <button className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
-                            <img height="40" width="40" className="rounded-3xl flex-initial"
-                                src={'/icons/default-avatar.jpg'}/>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </header>
+                <h1 style={
+                    {fontSize: '1.6rem'}
+                }>
+                    {
+                    t('dashboard')
+                }</h1>
+
+            </Navbar.Header>
+            <Nav pullRight
+                style={
+                    {backgroundColor: 'white !important'}
+            }>
+                <Link href=""
+                    locale={
+                        locale === 'en' ? 'fr' : 'en'
+                }>
+                    <Nav.Item size="2x"> {
+                        <strong style={{fontSize:'15px'}}>{locale.toUpperCase()}</strong>
+                    } </Nav.Item>
+                </Link>
+                <Nav.Item icon={<Icon
+                        className={
+UtilStyle['has-margin-left-5']}
+                    size="lg"
+                    icon="bell-o"/>}></Nav.Item>
+                <Nav.Item icon={<Icon
+                        className={
+UtilStyle['has-margin-left-5']}
+                    size="lg"
+                    icon="cog"/>}></Nav.Item>
+                <Nav.Item icon={<Icon
+                        className={
+UtilStyle['has-margin-left-5']}
+                    size="lg"
+                    icon="user"/>}></Nav.Item>
+            </Nav>
+        </Navbar>
     );
 }
 

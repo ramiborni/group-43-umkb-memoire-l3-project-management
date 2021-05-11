@@ -11,7 +11,7 @@ import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import RoundedPrimaryButton from "../../../components/public/buttons/RoundedPrimaryButton";
 import OutlinedRoundedTextArea from "../../../components/public/inputs/OutlinedRoundedTextArea";
 import OutlinedRoundedTextField from "../../../components/public/inputs/OutlinedRoundedTextField";
-import InfoCard from "../../../components/specified/dashboard/index/InfoCard";
+import InfoCard from "../../../components/public/InfoCard";
 
 const add = () => {
     return (

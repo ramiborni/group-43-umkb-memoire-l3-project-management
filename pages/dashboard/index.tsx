@@ -4,13 +4,46 @@ import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import React from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import Badge from "../../components/public/badges/Badge";
-import InfoCard from "../../components/specified/dashboard/index/InfoCard";
+import InfoCard from "../../components/public/InfoCard";
 import {Line} from 'rc-progress';
-import LatestProject from "../../components/specified/dashboard/index/LatestProject";
-import Calendar from 'react-calendar';
+import LatestProject from "../../components/specified/dashboard/index/ProjectDashboardCard";
 import 'react-calendar/dist/Calendar.css';
-
+import {
+    Col,
+    Container,
+    Dropdown,
+    Icon,
+    IconButton,
+    Row,
+    Tag,
+    Calendar,
+    Badge
+} from "rsuite";
+import UtilStyle from '../../styles/Utilities.module.css'
+import WelcomeUser from "../../components/specified/dashboard/index/WelcomeUser";
+import ProjectDashboardCard from "../../components/specified/dashboard/index/ProjectDashboardCard";
+function getTodoList(date:Date) {
+    const formattedDate = date.toISOString().split('T')[0];
+    const dateDay : number = parseInt(formattedDate.split('-')[2])
+    switch (dateDay) {
+      case 10:
+        return [
+          { time: '10:30 am', title: 'Meeting' },
+          { time: '12:00 pm', title: 'Lunch' }
+        ];
+      case 15:
+        return [
+          { time: '09:30 pm', title: 'Products Introduction Meeting' },
+          { time: '12:30 pm', title: 'Client entertaining' },
+          { time: '02:00 pm', title: 'Product design discussion' },
+          { time: '05:00 pm', title: 'Product test and acceptance' },
+          { time: '06:30 pm', title: 'Reporting' },
+          { time: '10:00 pm', title: 'Going home to walk the dog' }
+        ];
+      default:
+        return [];
+    }
+  }
 const index = () => {
     const {t} = useTranslation('dashboard');
     const files = [
@@ -28,74 +61,49 @@ const index = () => {
             "date": "2021-03-01"
         },
     ]
+    const latestProject = {
+        title:'Hello world Project',
+    }
+    const latestImpProject = {
+        title:'Project Management',
+
+    }
+    const renderCell =  (date) => {
+        const list = getTodoList(date);
+
+        if (list.length) {
+          return <Badge className="calendar-todo-item-badge" />;
+        }
+      
+        return null;
+ 
+      }
+      
 
     return (
         <DashboardLayout>
-            <div className="my-10">
-                <InfoCard>
-                    <div className="flex flex-col lg:flex-row items-center">
-                        <div className="flex-1 text-center lg:text-left">
-                            <h2 className="text-md lg:text-2xl mb-2">
-                                {
-                                t('welcome') + ' '
-                            }
-                                <strong>Akram Mechenetel !</strong>
-                            </h2>
-                            <p className="text-sm lg:text-md">
-                                {
-                                t('welcome-more')
-                            } </p>
-                        </div>
-                        <div className="flex-none text-left">
-                            <img height="200" width="200" src="/backgrounds/welcomeUser.png"/>
-                        </div>
-                    </div>
-                </InfoCard>
-            </div>
-            <div className="my-16 flex flex-col lg:flex-row items-center justify-center lg:space-x-5">
-                <div className="flex">
-                    <LatestProject/>
-                </div>
-                <div className="flex">
-                    <Calendar className="rounded-xl border-none p-5"/>
-                </div>
-                <div className="flex">
-                    <InfoCard>
-                        <div className="flex flex-col space-y-8">
-                            <div className="flex flex-row items-center w-full space-x-3">
-                            <div className="flex-1">
-                                    <h2 className="text-xl">Latest Documents</h2>
-                                </div>
-                                <div className="flex-none text-right">
-                                    <a href="#">
-                                        <DotsVerticalIcon className="h-7 w-7"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="flex flex-col items-start space-y-6">
-                                {
-                                files.map((file, i) => <div key={
-                                        'file-' + i
-                                    }
-                                    className="flex w-full flex-row space-x-3 cursor-pointer items-center justify-start text-left hover:bg-gray-100 rounded-xl py-2 px-5">
-                                    <div className="flex flex-row space-x-3">
-                                        <div className="flex rounded-full p-2 bg-purple-400 text-white">
-                                            <FolderIcon className="h-5 w-5"/>
-                                        </div>
-                                        <div className="flex">
-                                            {
-                                            file.filename
-                                        } </div>
-                                    </div>
+            <Container>
+                <WelcomeUser/>
+                <Row className={
+                    UtilStyle['has-margin-top-50']
+                }>
+                    <Col className={UtilStyle['has-padding-20']} xs={24}
+                        lg={8}>
+                         <ProjectDashboardCard deadline="10/08/2021" typeProject="Latest Project" projectTitle={latestProject.title}  priority={0} numberTasks={50} numberTasksDone={10} />
+                    </Col>
+                    <Col className={UtilStyle['has-padding-20']} xs={24}
+                        lg={8}>
+                         <ProjectDashboardCard deadline="15/10/2021" typeProject="Latest Important Porject" projectTitle={latestImpProject.title} priority={1} numberTasks={75} numberTasksDone={40}/>
+                    </Col>
+                    <Col className={UtilStyle['has-padding-20']} xs={24}
+                        lg={8}>
+                            <Calendar renderCell={renderCell}  compact bordered style={{height:'100%',borderRadius:'0.75rem'}}/>
+                    </Col>
+                </Row>
 
-                                </div>)
-                            } </div>
-                        </div>
+            </Container>
 
-                    </InfoCard>
-                </div>
 
-            </div>
         </DashboardLayout>
     );
 }

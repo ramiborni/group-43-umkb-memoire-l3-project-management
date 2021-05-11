@@ -7,7 +7,7 @@ import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import Badge from "../../../components/public/badges/Badge";
 import PrimaryButton from "../../../components/public/buttons/PrimaryButton";
 import RoundedPrimaryButton from "../../../components/public/buttons/RoundedPrimaryButton";
-import InfoCard from "../../../components/specified/dashboard/index/InfoCard";
+import InfoCard from "../../../components/public/InfoCard";
 
 const index = () => {
     const {t} = useTranslation('dashboard');
