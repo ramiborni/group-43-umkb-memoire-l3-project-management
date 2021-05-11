@@ -7,7 +7,6 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InfoCard from "../../components/public/InfoCard";
 import {Line} from 'rc-progress';
 import LatestProject from "../../components/specified/dashboard/index/ProjectDashboardCard";
-import 'react-calendar/dist/Calendar.css';
 import {
     Col,
     Container,
