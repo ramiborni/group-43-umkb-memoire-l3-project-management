@@ -5,6 +5,19 @@
 .textCenter{
   text-align: center;
 }
+.primaryText{
+  color: #9891c8 !important;
+}
+.successText{
+  color: #00C851 !important;
+
+}
+.infoText{
+  color: #33b5e5 !important;
+}
+.bgText{
+  color: rgb(183, 184, 185) !important;
+}
 .hide{
   display:none;
 }

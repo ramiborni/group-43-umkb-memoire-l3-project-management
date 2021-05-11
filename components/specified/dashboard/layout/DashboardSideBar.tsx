@@ -5,6 +5,7 @@ import User from '../../../../models/User';
 import UserCardHorizontal from '../layout/UserCardHorizantal'
 import ListSideBarNavigationItems from './ListSideBarNavigationItems';
 import UtilStyle from '../../../../styles/Utilities.module.css'
+import Link from 'next/link';
 
 const DashboardSideBar = ({expanded} : {
     expanded: boolean
@@ -47,6 +48,7 @@ const DashboardSideBar = ({expanded} : {
                         }
                         src="/logo.jpg"/>
                     <Nav>
+                        <Link href="/dashboard/">
                         <Nav.Item eventKey="1"
                             icon={
                                 <Icon
@@ -54,6 +56,9 @@ const DashboardSideBar = ({expanded} : {
                         }>
                             Dashboard
                         </Nav.Item>
+                        
+                        </Link>
+                        <Link href="/dashboard/projects/">
                         <Nav.Item eventKey="2"
                             icon={
                                 <Icon
@@ -61,6 +66,7 @@ const DashboardSideBar = ({expanded} : {
                         }>
                             Projects
                         </Nav.Item>
+                        </Link>
                         <Nav.Item eventKey="2"
                             icon={
                                 <Icon
