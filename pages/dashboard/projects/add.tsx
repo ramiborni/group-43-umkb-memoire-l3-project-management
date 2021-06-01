@@ -33,8 +33,8 @@ const add = (props : InferGetStaticPropsType < typeof getStaticProps >) => {
     const [activeStep, setActiveStep] = useState(2);
     const [open, setOpen] = React.useState(false);
 
-    const [selectedExpectedStartDate, handleExpectedStartDateChange] = useState(new moment());
-    const [selectedExpectedEndDate, handleExpectedEndDateChange] = useState(new moment());
+    const [selectedExpectedStartDate, handleExpectedStartDateChange] = useState(moment());
+    const [selectedExpectedEndDate, handleExpectedEndDateChange] = useState(moment());
     const CardOne = <Paper elevation={0}
     className="p-10 lg:px-52 space-y-3 rounded-xl shadow-lg text-center">
     <div className="space-y-5">
