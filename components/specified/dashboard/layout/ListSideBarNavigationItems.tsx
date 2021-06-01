@@ -1,4 +1,3 @@
-import {BriefcaseIcon, HomeIcon, ClipboardListIcon, CalendarIcon, ChartSquareBarIcon, UserGroupIcon, InboxInIcon} from "@heroicons/react/outline";
 import React from "react";
 import SideBarNavigationItem from "./SideBarNavigationItem";
 
