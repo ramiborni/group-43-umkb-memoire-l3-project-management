@@ -198,6 +198,8 @@ const index = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
     const Tab2 = <></>
 
+    var clients = [...new Set(projects.map(p => p.company))].length
+
     return (
         <DashboardLayout>
             <Typography variant="h4">Overview</Typography>
@@ -226,7 +228,7 @@ const index = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                     xs={12}
                     lg={3}>
                     <OverViewCard num={
-                            [...new Set(projects.map(p => p.company))].length
+                            clients
                         }
                         color="text-blue-400"
                         title="CLIENTS"/>
