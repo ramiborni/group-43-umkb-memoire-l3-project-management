@@ -67,7 +67,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
     );
 
     return (
-        <SnackbarProvider ref={notistackRef} TransitionComponent={Collapse} maxSnack={3}>
+        <SnackbarProvider TransitionComponent={Collapse} maxSnack={3}>
            <LoginContext.Provider value={
             {username, password}
         }>
