@@ -5,7 +5,7 @@ import AssignmentRoundedIcon from '@material-ui/icons/AssignmentRounded';
 import EventNoteRoundedIcon from '@material-ui/icons/EventNoteRounded';
 import BusinessRoundedIcon from '@material-ui/icons/BusinessRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-const ProjectCard = ( {project}:{project:object}) => {
+const ProjectCard = ( {project}) => {
     return (
         <Card elevation={0}
                     className="shadow-md rounded-lg">
