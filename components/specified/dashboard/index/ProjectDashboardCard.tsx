@@ -13,9 +13,7 @@ import {
 } from "@material-ui/core";
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
-const ProjectDashboardCard = ({project} : {
-    project: object
-}) => {
+const ProjectDashboardCard = ({project}) => {
     const RenderPeriorityChip = () => {
         switch (project.periority) {
             case 1:
