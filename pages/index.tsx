@@ -27,6 +27,8 @@ import { SnackbarProvider } from 'notistack';
 import { AccountCircle } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import { InferGetStaticPropsType } from "next";
+
 /**
  * CREATED By Borni Ahmed Rami ( borniahmedrami@gmail.com / github : @rikiraspoutine ) in 04/29/2021 
  * TESTED IN Fedora 33
@@ -34,7 +36,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
  * TODO: ADD login.tsx to redirect to index.tsx
  */
 
-export default function Home() {
+export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
     const {t} = useTranslation('login')
     const router = useRouter()
     const [username, setUsername] = useState("");
@@ -44,6 +46,7 @@ export default function Home() {
 
     const login = () => {
         if (!(username && password)) {
+            // @ts-ignore
             notistackRef.current.enqueueSnackbar(t('empty-form'), {
                 variant: 'warning',
                 autoHideDuration: 3000,
