@@ -1,4 +1,4 @@
-import { CogIcon } from "@heroicons/react/outline";
+import { Avatar } from "@material-ui/core";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React from "react";
@@ -8,12 +8,12 @@ const UserCardHorizantal = ({imgProfile,userDetails}:{imgProfile:string,userDeta
     const {t} = useTranslation("dashboard");
     return (
         <Link href="/dashboard/profile">
-          <div className="cursor-pointer hover:bg-gray-200 p-2 transition duration-200 rounded-xl  select-none	flex flex-row bg-white items-center justify-center">
-            <img  height="30" width="30" className="rounded-3xl flex-initial ml-4" src={imgProfile}/>
-            <div className="flex-1 px-5">
+          <div className="cursor-pointer hover:bg-gray-200 p-1 py-2 transition duration-200 rounded-xl  select-none	flex flex-row bg-white items-center justify-center">
+            <Avatar className="flex-initial ml-3"/>
+            <div className="flex-1 px-4">
                 <div className="flex flex-col">
                     <h3 className="text-sm font-bold">{userDetails.firstname+' '+userDetails.lastname}</h3>
-                    <h6 className="text-xs"> {t('view-profile')}</h6>
+                    <h6 className="text-xs"> {userDetails.role}</h6>
                 </div>
             </div>            
         </div>

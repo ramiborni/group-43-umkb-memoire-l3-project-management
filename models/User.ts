@@ -9,12 +9,14 @@ class User implements IUser{
     firstname: string;
     lastname: string;
     email: string;
+    role:string = "Admin";
 
     constructor(username,firstname,lastname,email ){
            this.username = username;
            this.firstname=firstname;
            this.lastname=lastname;
            this.email=email;
+           this.role = "Admin";
     }
 
 }

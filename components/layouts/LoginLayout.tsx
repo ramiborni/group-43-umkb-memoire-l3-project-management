@@ -1,16 +1,16 @@
 import React, {ReactNode} from "react"
 import LoginStyles from "../../styles/components/LoginLayout.module.css"
 import {useTranslation} from "next-i18next"
-import 'rsuite/lib/styles/index.less';
-const LoginLayout = ({child} : {
-    child: ReactNode
-}) => {
+import { Container } from "@material-ui/core"
+const LoginLayout = ({children}) => {
 
     const {t} = useTranslation('common')
     return (
         <>
         <main className={LoginStyles.root}>
-              {child}    
+             <Container className="p-5">
+               {children}    
+             </Container>
         </main>
         </>
     )

@@ -1,148 +1,112 @@
 import {Line} from "rc-progress";
 import React from "react";
 import InfoCard from "../../../public/InfoCard";
-import {
-    Col,
-    Dropdown,
-    Icon,
-    IconButton,
-    Row,
-    Tag
-} from "rsuite";
 import UtilStyle from '../../../../styles/Utilities.module.css'
+import {
+    Avatar,
+    Chip,
+    Grid,
+    IconButton,
+    LinearProgress,
+    Paper,
+    Typography
+} from "@material-ui/core";
+import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
-const ProjectDashboardCard = ({
-    typeProject,
-    projectTitle,
-    priority,
-    numberTasks,
-    numberTasksDone,
-    deadline
-} : {
-    typeProject: string,
-    projectTitle: string,
-    priority: number | null,
-    numberTasks: number,
-    numberTasksDone: number,
-    deadline: string
+const ProjectDashboardCard = ({project} : {
+    project: object
 }) => {
+    const RenderPeriorityChip = () => {
+        switch (project.periority) {
+            case 1:
+                return <Chip className="text-red-500 border-red-500 rounded-lg" label="HIGH PERIORITY" variant="outlined"/>
+                break;
+            case 2:
+                return <Chip className="text-yellow-500 border-yellow-500 rounded-lg" label="MID PERIORITY" variant="outlined"/>
+                break;
+            case 3:
+                return <Chip className="rounded-lg" label="LOW PERIORITY" variant="outlined"/>
+                break;
+            default:
+                return <></>
+                break;
+        }
+    }
     return (
-        <InfoCard>
-            <Row>
-                <Col xs={20}>
-                    <h4>{typeProject}</h4>
-                </Col>
-                <Col xs={4}
-                    className={
-                        UtilStyle['justify-center']
-                }>
-                    <Dropdown style={
-                            {marginTop: '-4px'}
-                        }
-                        renderTitle={
-                            () => {
-                                return <IconButton size="lg" appearance="subtle"
-                                    icon={
-                                        <Icon
-                                    size="5x"
-                                    icon="ellipsis-v"></Icon>
-                                    }
-                                    circle/>;
-                            }
-                    }>
-                        <Dropdown.Item>
-                            <Icon icon="detail"/>
-                            Show More Details
-                        </Dropdown.Item>
-                        <Dropdown.Item>
-                            <Icon icon="list-ul"/>
-                            Show Tasks
-                        </Dropdown.Item>
-                    </Dropdown>
-
-                </Col>
-            </Row>
-            <Row className={
-                UtilStyle['has-margin-top-25']
-            }>
-                <Col xs={3}
-                    md={1}
-                    lg={3}>
-                    <div style={
+        <Paper elevation={0} className="p-4 rounded-xl space-y-5 shadow-sm">
+            <Grid container alignItems="center">
+                <Grid item
+                    xs={3}
+                    sm={2}
+                    lg={2}>
+                    <Avatar style={
                         {
-                            color: 'white',
-                            backgroundColor: '#9891c8',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '35px',
-                            height: '35px',
-                            borderRadius: '100%',
-                            marginTop: '-5.8px'
-                        }
-                    }>
-                        <Icon icon="briefcase"/>
-                    </div>
-                </Col>
-                <Col style={
-                        {marginLeft: '6px'}
-                    }
-                    xs={20}
-                    lg={priority ? 10 : 20}>
-                    <h5 style={{textOverflow: 'ellipsis', whiteSpace:'nowrap',overflow:'hidden'}}>{projectTitle}</h5>
-                </Col>
-                {
-                    (priority) ?  <Col style={
-                        {textAlign: 'end'}
-                    }
-                    className={
-                        UtilStyle['hide-only-touch']
-                }>
-                    <Tag color="orange">HIGH PERIORITY</Tag>
-                </Col> : ''
-                }
-            </Row>
-            <p style={
-                    {fontSize: '16px'}
-                }
-                className={
-                    UtilStyle['has-margin-top-25']
-            }>
-                Tasks Done : &nbsp;<strong>{numberTasksDone}/{numberTasks}</strong>
-            </p>
-            <div className={
-                UtilStyle['has-margin-top-15']
-            }>
-                <Line percent={numberTasksDone/numberTasks*100}
-                    strokeWidth={1}
-                    strokeColor="#8b5cf6"/>
-            </div>
-            <div className={
-                UtilStyle['has-margin-top-15']
-            }>
-                <Tag className={
-                        `${
-                            UtilStyle['has-padding-5']
-                        } ${
-                            UtilStyle['has-padding-left-10']
-                        } ${
-                            UtilStyle['has-padding-right-10']
-                        }`
-                    }
-                    style={
-                        {
-                            backgroundColor: '#9891c8',
+                            backgroundColor: '#736eae',
                             color: 'white'
                         }
-                }>EXPECTED DEADLINE : &nbsp;
-                    <strong>{deadline}</strong>
-                </Tag>
-            </div>
+                    }>
+                        {
+                        project.company.split(' ').slice(0, 2).map(i => i[0])
+                    } </Avatar>
+                </Grid>
+                <Grid item
+                    xs={7}
+                    sm={8}
+                    lg={8}
+                    className="flex flex-col align-center">
+                    <div>
+                        <Typography variant="h6" className="truncate">
+                            {
+                            project.title
+                        }</Typography>
+                    </div>
+                    <div>
+                        <Typography variant="subtitle2" className="truncate">
+                            {
+                            project.type
+                        }</Typography>
+                    </div>
+                </Grid>
+                <Grid item
+                    xs={2}
+                    lg={2}
+                    className="text-right justify-end align-end">
+                    <IconButton>
+                        <MoreVertRoundedIcon/>
+                    </IconButton>
+                </Grid>
 
-        </InfoCard>
+            </Grid>
+            <Grid container alignItems="center" className="pt-2">
+                <Grid item
+                    xs={6}>
+                    <Typography>
+                        Tasks Done &nbsp;
+                        <b>{
+                            project.progressedTasks
+                        }/{
+                            project.totalTasks
+                        }</b>
+                    </Typography>
+                </Grid>
+                <Grid item
+                    xs={6}
+                    className="text-right">
+                    {
+                    RenderPeriorityChip()
+                } </Grid>
+            </Grid>
+            <LinearProgress className='-mt-5 rounded-xl' variant="determinate"
+                value={
+                    project.progressedTasks / project.totalTasks * 100
+                }/>
+            <Chip className="text-purple-800 bg-purple-100 rounded-lg"
+                label={
+                    "ESTIMATED DEADLINE : " + project.deadline
+                }/>
+
+        </Paper>
     );
 }
-ProjectDashboardCard.propTypes={
-    periority:null
-}
+
 export default ProjectDashboardCard;

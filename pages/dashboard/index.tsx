@@ -1,107 +1,179 @@
-import {BriefcaseIcon, DotsVerticalIcon, FolderIcon} from "@heroicons/react/outline";
-import {motion} from "framer-motion";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import React from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import InfoCard from "../../components/public/InfoCard";
-import {Line} from 'rc-progress';
-import LatestProject from "../../components/specified/dashboard/index/ProjectDashboardCard";
-import {
-    Col,
-    Container,
-    Dropdown,
-    Icon,
-    IconButton,
-    Row,
-    Tag,
-    Calendar,
-    Badge
-} from "rsuite";
+
 import UtilStyle from '../../styles/Utilities.module.css'
 import WelcomeUser from "../../components/specified/dashboard/index/WelcomeUser";
 import ProjectDashboardCard from "../../components/specified/dashboard/index/ProjectDashboardCard";
-function getTodoList(date:Date) {
-    const formattedDate = date.toISOString().split('T')[0];
-    const dateDay : number = parseInt(formattedDate.split('-')[2])
-    switch (dateDay) {
-      case 10:
-        return [
-          { time: '10:30 am', title: 'Meeting' },
-          { time: '12:00 pm', title: 'Lunch' }
-        ];
-      case 15:
-        return [
-          { time: '09:30 pm', title: 'Products Introduction Meeting' },
-          { time: '12:30 pm', title: 'Client entertaining' },
-          { time: '02:00 pm', title: 'Product design discussion' },
-          { time: '05:00 pm', title: 'Product test and acceptance' },
-          { time: '06:30 pm', title: 'Reporting' },
-          { time: '10:00 pm', title: 'Going home to walk the dog' }
-        ];
-      default:
-        return [];
-    }
-  }
+import {
+    Avatar,
+    Chip,
+    Grid,
+    IconButton,
+    LinearProgress,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    NoSsr,
+    Paper,
+    Typography
+} from "@material-ui/core";
+import FolderIcon from '@material-ui/icons/Folder';
+import {Calendar, momentLocalizer, Views} from 'react-big-calendar'
+import moment from 'moment'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
+const localizer = momentLocalizer(moment)
+
+
 const index = () => {
+
     const {t} = useTranslation('dashboard');
     const files = [
         {
-            "filename": "test.pdf",
-            "subject": "project-1",
+            "filename": "plan-B.pdf",
+            "subject": "Google Pixel 4 Marketing",
             "date": "2021-01-01"
         }, {
-            "filename": "test2.docx",
-            "subject": "project-1",
+            "filename": "plan-A.docx",
+            "subject": "Google Pixel 4 Marketing",
             "date": "2021-02-01"
         }, {
-            "filename": "test3.xlsx",
-            "subject": "project-1",
+            "filename": "funding-details.xlsx",
+            "subject": "Hello world Project",
             "date": "2021-03-01"
         },
     ]
+    const projects = [
+        {
+            "projectName":"Google Pixel 6 Marketing",
+            "company":"Google inc"
+        },
+        {
+            "projectName":"Hello world Project",
+            "company":"Rakm Conseil"
+        },
+        {
+            "projectName" : "Windows Next Gen",
+            "company": "Microsoft inc"
+        }
+    ]
     const latestProject = {
-        title:'Hello world Project',
+        title: 'Hello world Project',
+        company: 'Rakm Conseil',
+        type: 'App design & developement',
+        periority: 2,
+        totalTasks: 50,
+        progressedTasks: 32,
+        deadline: '25/10/2021'
     }
     const latestImpProject = {
-        title:'Project Management',
-
+        title: 'Google Pixel 6 Marketing',
+        company: 'Google',
+        type: 'Marketing',
+        periority: 1,
+        totalTasks: 182,
+        progressedTasks: 156,
+        deadline: '13/08/2021'
     }
-    const renderCell =  (date) => {
-        const list = getTodoList(date);
 
-        if (list.length) {
-          return <Badge className="calendar-todo-item-badge" />;
-        }
-      
-        return null;
- 
-      }
-      
+    const events = [{
+            start: moment().toDate(),
+            end: moment().add(4, "days").toDate(),
+            title: "Presentation"
+        }];
 
     return (
         <DashboardLayout>
-            <Container>
-                <WelcomeUser/>
-                <Row className={
-                    UtilStyle['has-margin-top-50']
-                }>
-                    <Col className={UtilStyle['has-padding-20']} xs={24}
-                        lg={8}>
-                         <ProjectDashboardCard deadline="10/08/2021" typeProject="Latest Project" projectTitle={latestProject.title}  priority={0} numberTasks={50} numberTasksDone={10} />
-                    </Col>
-                    <Col className={UtilStyle['has-padding-20']} xs={24}
-                        lg={8}>
-                         <ProjectDashboardCard deadline="15/10/2021" typeProject="Latest Important Porject" projectTitle={latestImpProject.title} priority={1} numberTasks={75} numberTasksDone={40}/>
-                    </Col>
-                    <Col className={UtilStyle['has-padding-20']} xs={24}
-                        lg={8}>
-                            <Calendar renderCell={renderCell}  compact bordered style={{height:'100%',borderRadius:'0.75rem'}}/>
-                    </Col>
-                </Row>
+            <div className="h-5"></div>
+            <WelcomeUser/>
+            <Grid container className="mt-10">
+                <Grid item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    className="space-y-5 p-2">
+                    <Paper elevation={0}
+                        className="p-4 rounded-xl space-y-5 shadow-sm">
+                        <Typography variant="h5">Projects</Typography>
+                        <List> {
+                            projects.map((project, i) => <ListItem className="rounded-xl" button
+                                key={i}>
+                                <ListItemIcon>
+                                    <Avatar color="primary">
+                                        <BusinessCenterRoundedIcon className="text-white"/>
+                                    </Avatar>
+                                </ListItemIcon>
+                                <ListItemText primary={
+                                        project.projectName
+                                    }
+                                    secondary={
+                                        project.company
+                                    }/>
 
-            </Container>
+                            </ListItem>)
+                        } </List>
 
+                    </Paper>
+                    <ProjectDashboardCard project={latestImpProject}/>
+
+                </Grid>
+                <Grid item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    className="space-y-5 p-2">
+                    <ProjectDashboardCard project={latestProject}/>
+
+                    <Paper elevation={0} className="p-4 rounded-xl space-y-5 shadow-sm">
+                        <Typography variant="h5">Latest Files</Typography>
+                        <List> {
+                            files.map((file, i) => <ListItem className="rounded-xl" button
+                                key={i}>
+                                <ListItemIcon>
+                                    <Avatar color="primary">
+                                        <FolderIcon className="text-white"/>
+                                    </Avatar>
+                                </ListItemIcon>
+                                <ListItemText primary={
+                                        file.filename
+                                    }
+                                    secondary={
+                                        file.subject
+                                    }/>
+
+                            </ListItem>)
+                        } </List>
+                    </Paper>
+
+                </Grid>
+                <Grid item
+                    xs={12}
+                    lg={4}
+                    className="space-y-5 p-2">
+
+                    <Paper elevation={0}
+                        className="p-4 rounded-xl space-y-5 shadow-sm">
+                        <Typography variant="h5">Planned Events</Typography>
+
+                        <Calendar min={
+                                moment().toDate()
+                            }
+                            views={
+                                ['month']
+                            }
+                            localizer={localizer}
+                            events={events}
+                            startAccessor="start"
+                            endAccessor="end"
+                            style={
+                                {height: 475}
+                            }/>
+                    </Paper>
+                </Grid>
+            </Grid>
 
         </DashboardLayout>
     );

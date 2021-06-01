@@ -1,17 +1,32 @@
-import {LockClosedIcon, UserIcon} from '@heroicons/react/outline'
 import {useTranslation} from 'next-i18next'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {Fragment, useContext, useEffect, useState} from 'react'
 import LoginLayout from '../components/layouts/LoginLayout'
 import OutlinedInputTextField from '../components/public/inputs/OutlinedInputTextField'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 import LoginContext from '../context/LoginContext'
 import Notiflix from "notiflix";
-import {Button, Col, Container, Input, InputGroup, Row} from "rsuite";
 import PrimaryButton from '../components/public/buttons/PrimaryButton'
 import UtilStyle from '../styles/Utilities.module.css'
 import Card from '../components/public/InfoCard'
+import GeneralHead from '../components/public/heads/GeneralHead'
+import {
+    Button,
+    CardContent,
+    CardHeader,
+    Collapse,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography
+} from '@material-ui/core'
+import InfoCard from '../components/public/InfoCard'
+import { SnackbarProvider } from 'notistack';
+import { AccountCircle } from '@material-ui/icons';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 /**
  * CREATED By Borni Ahmed Rami ( borniahmedrami@gmail.com / github : @rikiraspoutine ) in 04/29/2021 
  * TESTED IN Fedora 33
@@ -24,58 +39,110 @@ export default function Home() {
     const router = useRouter()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const notistackRef = React.createRef();
 
 
     const login = () => {
         if (!(username && password)) {
-            Notiflix.Notify.Failure(t('empty-form'))
+            notistackRef.current.enqueueSnackbar(t('empty-form'), {
+                variant: 'warning',
+                autoHideDuration: 3000,
+                snack,
+            });
         } else {
             router.push('/dashboard');
         }
 
     }
+    const snack = key => (
+        <Fragment>
+            <IconButton  onClick={() => { this.props.closeSnackbar(key) }}>
+                   <CloseIcon/>
+            </IconButton>
+        </Fragment>
+    );
+
     return (
-        <LoginContext.Provider value={
+        <SnackbarProvider ref={notistackRef} TransitionComponent={Collapse} maxSnack={3}>
+           <LoginContext.Provider value={
             {username, password}
         }>
-            <LoginLayout child={<Container>
-                <Row className={UtilStyle['has-padding-0']}>
-                <Button className={UtilStyle.transparent}><h6>{t('change-locale')}</h6></Button>
-                </Row>
-                <Row fluid="true"  className={UtilStyle['has-padding-25-desktop']}>
-                  <Col xs={24} lg={12}>
-                     <Card>
-                       <Row className={`${UtilStyle['has-padding-left-50-desktop']} ${UtilStyle['has-padding-right-50-desktop']} ${UtilStyle.textCenter}`}>
+            <GeneralHead title={
+                t('login')
+            }></GeneralHead>
 
-                         <img height="75" className={`${UtilStyle.imageCenter} ${UtilStyle['has-margin-top-20']}`} src="/logo.jpg"/>
-                         <h3 className={`${UtilStyle['has-margin-top-50']} ${UtilStyle['has-margin-bottom-20']}`} >{t('welcome')}</h3>
-                         <InputGroup className={`${UtilStyle['has-padding-top-5']} ${UtilStyle['has-padding-bottom-5']} ${UtilStyle['has-margin-top-20']} ${UtilStyle['has-margin-bottom-20']}`}>
-                               <Input onChange={(v) => setUsername(v)}  placeholder={t('username')} />
-                               <InputGroup.Addon style={{backgroundColor:'white'}}>
-                                    <UserIcon className={`${UtilStyle.h5} ${UtilStyle.w5}`}/>
-                               </InputGroup.Addon>
-                         </InputGroup>
-                         <InputGroup className={`${UtilStyle['has-padding-top-5']} ${UtilStyle['has-padding-bottom-5']} ${UtilStyle['has-margin-top-20']} ${UtilStyle['has-margin-bottom-20']}`}>
-                               <Input onChange={(v) => setPassword(v)}  placeholder={t('password')} />
-                               <InputGroup.Addon style={{backgroundColor:'white'}}>
-                                    <LockClosedIcon className={`${UtilStyle.h5} ${UtilStyle.w5}`}/>
-                               </InputGroup.Addon>
-                         </InputGroup>
-                         <Button onClick={() => login()} className={`${UtilStyle['has-padding-top-10']} ${UtilStyle['has-padding-bottom-10']}`} block appearance='primary'>
-                           {t('login')}
-                         </Button>
-                         <Link href="/reset">
-                         <Button className={`${UtilStyle['has-margin-top-15']} ${UtilStyle['has-padding-top-10']} ${UtilStyle['has-padding-bottom-10']}`} >
-                           {t('forgot_password')}
-                         </Button>
-                         
-                         </Link>
-                       </Row>
-                     </Card>
-                  </Col>
-                  </Row>
-                </Container>}/>
+            <LoginLayout>
+                <Grid container alignItems="center" className="mt-5">
+                    <Grid item
+                        xs={12}
+                        md={6}>
+                        <InfoCard>
+                            <CardContent className="space-y-8" >
+                                <Grid container={true}
+                                    direction="row"  
+                                    justify="center"
+                                    alignItems="center">
+                                    <Grid item
+                                        xs={10} className="space-y-5">
+                                        <Typography className="font-bold" variant="h4">
+                                            {
+                                            t('login')
+                                        } </Typography>
+                                        <Typography> {
+                                            t('welcome')
+                                        } </Typography>
+                                    </Grid>
+                                    <Grid className="hidden md:block" justify="flex-end" item
+                                        md={2}>
+                                        <img className="m-auto" height="50" width="50" src="logo-non-text.jpg"/>
+                                    </Grid>
+                                </Grid>
+                                <form className="space-y-5">
+                                    <TextField placeholder={t('username')} onChange={(event) => setUsername(event.target.value)} name="username" variant="outlined" key="username" fullWidth required  InputProps={{
+          startAdornment: (
+            <InputAdornment className="mr-2" position="end">
+              <AccountCircleOutlinedIcon color="action" />
+            </InputAdornment>
+          ),
+        }}
+                                        label={
+                                            t('username')
+                                    }></TextField>
+                                    <TextField placeholder={t('password')} InputProps={{
+          startAdornment: (
+            <InputAdornment className="mr-2" position="end">
+              <LockOutlinedIcon color="action" />
+            </InputAdornment>
+          ),
+        }} onChange={(event) => setPassword(event.target.value)} name="password" variant="outlined" key="password" fullWidth required
+                                        label={
+                                            t('password')
+                                    }></TextField>
+
+                                    <Button style={{height:'40px'}} onClick={() => login()} disableElevation fullWidth variant="contained" color="primary">
+                                        {t('login')}
+                                    </Button>
+
+                                    
+                                    
+                                </form>
+                                <div className="text-center">
+                                   <Link href="/reset">
+                                   <Button variant="text" color="primary">
+                                        {t('forgot_password')}
+                                    </Button>
+                                   </Link>
+                                </div>
+
+                               
+                            </CardContent>
+                        </InfoCard>
+                    </Grid>
+                </Grid>
+            </LoginLayout>
         </LoginContext.Provider>
+        </SnackbarProvider>
+
     )
 }
 

@@ -1,38 +1,82 @@
+import {
+    Button,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    Tab,
+    Tabs,
+    Typography
+} from "@material-ui/core";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React, {useState} from "react";
-import {
-    Button,
-    Col,
-    Dropdown,
-    Grid,
-    Icon,
-    IconButton,
-    Nav,
-    Row,
-    SelectPicker,
-    Tag
-} from "rsuite";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import InfoCard from "../../../components/public/InfoCard";
 import OverViewCard from "../../../components/specified/dashboard/projects/index/OverViewCard";
-import UtilStyle from '../../../styles/Utilities.module.css'
+import {InferGetStaticPropsType} from "next";
+import AddIcon from '@material-ui/icons/Add';
+import moment from "moment";
+import ProjectCard from "../../../components/specified/dashboard/projects/index/ProjectCard";
 
 
-const index = () => {
+const index = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
     const {t} = useTranslation('dashboard');
     const projects = [
         {
-            title: 'Gestion de projet 1.0',
-            deadline : '12/06/2021',
-            fields: ['Marketing']
-        },
-        {
-            title: 'Gestion de projet 2.0',
-            deadline : '29/07/2021',
-            fields: ['IT', 'Economie']
-        }, 
+            title: 'Hello world Project',
+            description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.',
+            company: 'Rakm Conseil',
+            type: 'App design & developement',
+            periority: 2,
+            totalTasks: 50,
+            progressedTasks: 32,
+            deadline: '25/10/2021',
+            createdDate: '27/05/2021',
+            state: 0,
+            docs: 5,
+            employers:3,
+        }, {
+            title: 'Google Pixel 6 Marketing',
+            description: 'Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.',
+            company: 'Google',
+            type: 'Marketing',
+            periority: 1,
+            totalTasks: 182,
+            progressedTasks: 156,
+            deadline: '13/08/2021',
+            createdDate: '21/05/2021',
+            state: 0,
+            docs: 5,
+            employers:15,
+        }, {
+            title: 'Google Pixel 5 Marketing',
+            description: 'Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+            company: 'Google',
+            type: 'Marketing',
+            periority: 1,
+            totalTasks: 182,
+            progressedTasks: 156,
+            deadline: '10/08/2020',
+            createdDate: '22/01/2021',
+            state: 0,
+            docs: 5,
+            employers:18,
+        }, {
+            title: 'Surface Book 5 Marketing',
+            description: 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.',
+            company: 'Microsoft',
+            type: 'Marketing',
+            periority: 1,
+            totalTasks: 112,
+            progressedTasks: 112,
+            deadline: '13/08/2021',
+            createdDate: '01/01/2021',
+            state: 1,
+            docs: 15,
+            employers:13,
+        }
     ]
     const porjectStateList = [
         {
@@ -64,144 +108,145 @@ const index = () => {
             "value": "creation"
         }
     ]
+    const [valueTab, setValueTab] = React.useState(0);
+    const [valueState, setValueState] = React.useState(0);
+    const handleChange = (event : React.ChangeEvent < {} >, newValue : number) => {
+        setValueTab(newValue);
+    };
+    const handleChangeStateProject = (event : React.ChangeEvent < {} >, newValue : number) => {
+        setValueState(newValue);
+    };
 
 
-    const [activeTab, setActiveTab] = useState("projects")
-    const handleSelect = (activeKey) => setActiveTab(activeKey);
+    const Tab1 = <>
+        <Grid container alignItems="center">
+            <Grid item
+                xs={8}
+                lg={6}
+                className="space-x-5">
+                <FormControl style={
+                        {minWidth: '180px'}
+                    }
+                    variant="outlined">
+                    <InputLabel id="sort-project-label">Sorted</InputLabel>
+                    <Select labelId="sort-project-label" id="sort-project-field-outlined"
+                        value={valueState}
+                        onChange={handleChangeStateProject}
+                        label="Sorted">
+                        <MenuItem value={0}>
+                            Deadline
+                        </MenuItem>
+                        <MenuItem value={1}>Creation Date</MenuItem>
+                    </Select>
+                </FormControl>
+
+            </Grid>
+            <Grid item
+                xs={4}
+                lg={6}
+                className="justify-end text-right">
+                <Link href="/dashboard/projects/add">
+                    <Button disableElevation size="large" color="primary" variant="contained">
+                        <AddIcon></AddIcon>
+                        &nbsp;
+                                                                                                                                            ADD PROJECT
+                    </Button>
+                </Link>
+            </Grid>
+
+        </Grid>
+        <br/>
+        <br/>
+        <br/>
+        <Grid container justify="center"
+            spacing={5}>
+            <Grid item
+                xs={12}
+                md={6}
+                lg={4}
+                className="space-y-5">
+                <Typography variant="h5" className="text-red-500 font-extrabold">
+                    • NEW PROJECTS
+                </Typography>
+                { projects.filter(p => moment().diff(moment(p.createdDate, 'DD/MM/YYYY'), 'months', true) <= 1).map((p,index) => <ProjectCard key={index} project={p}/>)}
+                </Grid>
+            <Grid item
+                xs={12}
+                md={6}
+                lg={4}
+                className="space-y-5">
+                <Typography variant="h5" className="text-yellow-500 font-extrabold">
+                    • IN PROGRESS
+                </Typography>
+                { projects.filter(p => p.state===0).map((p,index) => <ProjectCard key={index} project={p}/>)}
+
+            </Grid>
+            <Grid item
+                xs={12}
+                md={6}
+                lg={4}
+                className="space-y-5">
+                <Typography variant="h5" className="text-green-500 font-extrabold">
+                    • COMPLETED
+                </Typography>
+                { projects.filter(p => p.state===1).map((p,index) => <ProjectCard key={index} project={p}/>)}
+
+            </Grid>
+        </Grid>
+
+    </>
+
+    const Tab2 = <></>
 
     return (
         <DashboardLayout>
-            <h4>Overview</h4>
-            <Row>
-                <Col xs={24}
-                    md={8}
-                    lg={6}
-                    className={
-                        UtilStyle['has-padding-25']
-                }>
-                    <OverViewCard num={8}
-                        title="Current Projects"
-                        color="primary"/>
-                </Col>
-                <Col xs={24}
-                    md={8}
-                    lg={6}
-                    className={
-                        UtilStyle['has-padding-25']
-                }>
-                    <OverViewCard num={4}
-                        title="Completed Projects"
-                        color="success"/>
-                </Col>
-                <Col xs={24}
-                    md={8}
-                    lg={6}
-                    className={
-                        UtilStyle['has-padding-25']
-                }>
-                    <OverViewCard num={2}
-                        title="Clients"
-                        color="info"/>
-                </Col>
-            </Row>
-            <br/>
-            <Nav activeKey={activeTab}
-                onSelect={handleSelect}
-                appearance="subtle">
-                <Nav.Item eventKey="projects">
-                    <h4>Projects</h4>
-                </Nav.Item>
-                <Nav.Item eventKey="clients">
-                    <h4>Clients</h4>
+            <Typography variant="h4">Overview</Typography>
+            <Grid container className="lg:space-y-0 lg:space-x-10 space-y-10 mt-10">
 
-                </Nav.Item>
-            </Nav>
-            <br/>
-            <Grid fluid>
+                <Grid item
+                    xs={12}
+                    lg={3}>
+                    <OverViewCard num={
+                            projects.length
+                        }
+                        color="text-purple-400"
+                        title="current projects"/>
+                </Grid>
+                <Grid item
+                    xs={12}
+                    lg={3}>
+                    <OverViewCard num={
+                            projects.filter(p => p.state === 1).length
+                        }
+                        color="text-green-400"
+                        title="COMPLETED PROJECTS"/>
 
-            <Row>
-                
-                <Col xs={8}
-                    md={2}
-                    lg={2}>
-                    <SelectPicker data={porjectStateList}
-                        searchable={false}
-                        cleanable={false}
-                        defaultValue="all"/>
-                </Col>
-                <Col xs={8}
-                    md={14}
-                    lg={6}>
-                    <SelectPicker data={filterList}
-                        searchable={false}
-                        cleanable={false}
-                        defaultValue="deadline"/>
-                </Col>
-                <Col xs={24} md={8} lgOffset={12}
-                    lg={4}
-                    className={
-                        `${UtilStyle['justify-end']} ${UtilStyle['align-end']}} ${UtilStyle['has-padding-top-25-mobile']}`
-                }>
-                    <Button block appearance="primary">ADD PROJECT</Button>
-                </Col>
-            </Row>
+                </Grid>
+                <Grid item
+                    xs={12}
+                    lg={3}>
+                    <OverViewCard num={
+                            [...new Set(projects.map(p => p.company))].length
+                        }
+                        color="text-blue-400"
+                        title="CLIENTS"/>
+
+                </Grid>
+
+
             </Grid>
             <br/>
-            <Grid fluid>
-
-            <Row> {
-                projects.map((p, index) => <Col key={index}
-                    xs={24}
-                    md={12}
-                    lg={6}
-                    className={
-                        UtilStyle['has-padding-15']
-                }>
-                    <InfoCard>
-                        <Row>
-                            <Col xs={20}>
-                                {
-                                <h5>{p.title}</h5>
-                            }</Col>
-                            <Col xs={4}>
-                                <Dropdown style={
-                                        {marginTop: '-5.9px'}
-                                    }
-                                    renderTitle={
-                                        () => {
-                                            return <IconButton size="lg" appearance="subtle"
-                                                icon={
-                                                    <Icon
-                                                size="5x"
-                                                icon="ellipsis-v"></Icon>
-                                                }
-                                                circle/>;
-                                        }
-                                }>
-                                    <Dropdown.Item>
-                                        <Icon icon="detail"/>
-                                        Show More Details
-                                    </Dropdown.Item>
-                                    <Dropdown.Item>
-                                        <Icon icon="list-ul"/>
-                                        Show Tasks
-                                    </Dropdown.Item>
-                                    <Dropdown.Item>
-                                        <Icon icon="user"/>
-                                        Show Client
-                                    </Dropdown.Item>
-                                </Dropdown>
-                            </Col>
-                        </Row>
-                        <br/>
-                        <span className={UtilStyle.infoDarkText}> Deadline : <strong>{p.deadline}</strong></span>
-
-
-                    </InfoCard>
-                </Col>)
-            } </Row>
-            </Grid>
-
+            <br/>
+            <Tabs indicatorColor="primary" textColor="primary"
+                value={valueTab}
+                onChange={handleChange}>
+                <Tab label="Projects"/>
+                {/* <Tab label="Clients"/> */}
+            </Tabs>
+            <br/>
+            <div> {
+                (valueTab === 0) ? Tab1 : Tab2
+            } </div>
         </DashboardLayout>
     );
 

@@ -7,15 +7,13 @@ const GeneralHead = ({title} : {
     
 
     return (
-        <div>
             <Head>
+                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
                 <title>{
                     (title!=='Rakm Conseil') ? title + mainTitle  : title
                 }</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-
-        </div>
     );
 }
 GeneralHead.defaultProps = {

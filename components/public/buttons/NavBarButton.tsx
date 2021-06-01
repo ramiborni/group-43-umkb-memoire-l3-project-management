@@ -1,4 +1,3 @@
-import { MenuIcon } from "@heroicons/react/outline";
 import React from "react";
 
 const NavBarButton = ({size,click}:{size:string,click:()=>any}) => {

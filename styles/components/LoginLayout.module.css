@@ -1,6 +1,6 @@
 
 .root{
-    height: 100%;
+    height: 100vh;
     overflow: hidden;
     background: url('/backgrounds/loginBackground.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -10,9 +10,9 @@
     padding: 0;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 960px) {
     .root{
-        height: 100%;
+        height: 100vh;
         overflow: hidden;
         background:url('/backgrounds/loginBackgroundMobile.jpg') no-repeat center center fixed; 
         -webkit-background-size: cover;
