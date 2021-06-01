@@ -28,6 +28,7 @@ import { AccountCircle } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { InferGetStaticPropsType } from "next";
+import CloseIcon from '@material-ui/icons/Close';
 
 /**
  * CREATED By Borni Ahmed Rami ( borniahmedrami@gmail.com / github : @rikiraspoutine ) in 04/29/2021 
