@@ -30,9 +30,8 @@ import moment from "moment";
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 
 const add = (props : InferGetStaticPropsType < typeof getStaticProps >) => {
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const [open, setOpen] = React.useState(false);
-
     const [selectedExpectedStartDate, handleExpectedStartDateChange] = useState(moment());
     const [selectedExpectedEndDate, handleExpectedEndDateChange] = useState(moment());
     const CardOne = <Paper elevation={0}
