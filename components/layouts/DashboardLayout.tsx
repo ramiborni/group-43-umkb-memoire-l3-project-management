@@ -48,7 +48,7 @@ const drawerItems=[
     path:'/projects',
     icon: <BusinessCenterRoundedIcon/>
   },
-  {
+  /*{
     name:'Tasks',
     path:'/tasks',
     icon: <AssignmentRoundedIcon/>
@@ -67,7 +67,7 @@ const drawerItems=[
     name:'Reports',
     path:'/reports',
     icon: <PollRoundedIcon/>
-  },
+  },*/
   {
       name :"Settings",
       path:'/settings',

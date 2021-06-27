@@ -1,25 +1,17 @@
-interface IUser{
-    username:string;
-    firstname: string;
-    lastname: string;
-    email : string;
+class User{
+    username: string
+    password:string
+    firstname:string
+    lastname:string
+    email:string
+    phoneNumber:string
+    role:number
+    module:number
+
+    addUser( user:User ) : User
+    removeUser(id:number) : Boolean
+    updateInfo(user:User) : Boolean
+    
+    
 }
-class User implements IUser{
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    role:string = "Admin";
-
-    constructor(username,firstname,lastname,email ){
-           this.username = username;
-           this.firstname=firstname;
-           this.lastname=lastname;
-           this.email=email;
-           this.role = "Admin";
-    }
-
-}
-
-
 export default User;
