@@ -12,9 +12,7 @@ class Project {
     tasks: Array<Task>
     module: Module
     
-    addProject(project:Project):Project
-    updateProject(project:Project):Boolean
-    addTask(task:Task): Boolean
+
     
 }
 export default Project;

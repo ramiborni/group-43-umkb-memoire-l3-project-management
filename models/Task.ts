@@ -6,7 +6,6 @@ class Task{
     description:string
     state : number
     
-    updateTask(t:Task) : Boolean
 }
 
 export default Task;
