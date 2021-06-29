@@ -5,7 +5,10 @@ import User from "./models/User"
 
 const userState = atom({
     key: 'user',
-    default: {}
+    default: {
+        username:null,
+        password:null,
+    }
 })
 
 const projectState = atom({
