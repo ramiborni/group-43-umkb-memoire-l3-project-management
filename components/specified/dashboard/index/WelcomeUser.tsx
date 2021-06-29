@@ -4,7 +4,7 @@ import UtilStyle from '../../../../styles/Utilities.module.css'
 import { useTranslation } from "next-i18next";
 import { Typography } from "@material-ui/core";
 
-const WelcomeUser = () => {
+const WelcomeUser = ({user}) => {
     
     const {t} = useTranslation('dashboard');
 
@@ -12,10 +12,10 @@ const WelcomeUser = () => {
 
        <div>
            <Typography variant="h4" >
-             Rakm Conseil Dashboard
+             Dashboard
            </Typography>
            <Typography variant="subtitle1" >
-             {t('welcome')} Borni Ahmed Rami
+             {t('welcome')} {user.firstname} {user.lastname}
            </Typography>
        </div>
     );

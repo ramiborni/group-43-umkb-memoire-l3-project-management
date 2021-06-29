@@ -2,9 +2,8 @@ import { Avatar } from "@material-ui/core";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React from "react";
-import User from "../../../../models/User";
 
-const UserCardHorizantal = ({imgProfile,userDetails}:{imgProfile:string,userDetails:User}) => {
+const UserCardHorizantal = ({imgProfile,userDetails}:{imgProfile:string,userDetails:any}) => {
     const {t} = useTranslation("dashboard");
     return (
         <Link href="/dashboard/profile">
@@ -13,7 +12,7 @@ const UserCardHorizantal = ({imgProfile,userDetails}:{imgProfile:string,userDeta
             <div className="flex-1 px-4">
                 <div className="flex flex-col">
                     <h3 className="text-sm font-bold">{userDetails.firstname+' '+userDetails.lastname}</h3>
-                    <h6 className="text-xs"> {userDetails.role}</h6>
+                    <h6 className="text-xs"> {userDetails.role===0 ? 'Admin' : 'User' }</h6>
                 </div>
             </div>            
         </div>

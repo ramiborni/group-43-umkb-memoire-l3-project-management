@@ -11,9 +11,10 @@ import {
     Paper,
     Typography
 } from "@material-ui/core";
-import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 const ProjectDashboardCard = ({project}) => {
+    console.log(project)
     const RenderPeriorityChip = () => {
         switch (project.periority) {
             case 1:
@@ -44,7 +45,7 @@ const ProjectDashboardCard = ({project}) => {
                         }
                     }>
                         {
-                        project.company.split(' ').slice(0, 2).map(i => i[0])
+                        project.name ? project.name.split(' ').slice(0, 1).map(i => i[0]) : ''
                     } </Avatar>
                 </Grid>
                 <Grid item
@@ -55,7 +56,7 @@ const ProjectDashboardCard = ({project}) => {
                     <div>
                         <Typography variant="h6" className="truncate">
                             {
-                            project.title
+                            project.name
                         }</Typography>
                     </div>
                     <div>
@@ -70,37 +71,32 @@ const ProjectDashboardCard = ({project}) => {
                     lg={2}
                     className="text-right justify-end align-end">
                     <IconButton>
-                        <MoreVertRoundedIcon/>
+                        <OpenInNewIcon/>
                     </IconButton>
                 </Grid>
 
             </Grid>
-            <Grid container alignItems="center" className="pt-2">
+            <Grid container alignItems="center" className="-mt-5">
                 <Grid item
                     xs={6}>
                     <Typography>
                         Tasks Done &nbsp;
                         <b>{
-                            project.progressedTasks
+                            project.tasks ? project.tasks.filter( t => t.state===1).length : 0
                         }/{
-                            project.totalTasks
+                            project.tasks ?  project.tasks.length : 0
                         }</b>
                     </Typography>
                 </Grid>
-                <Grid item
-                    xs={6}
-                    className="text-right">
-                    {
-                    RenderPeriorityChip()
-                } </Grid>
+               
             </Grid>
             <LinearProgress className='-mt-5 rounded-xl' variant="determinate"
                 value={
-                    project.progressedTasks / project.totalTasks * 100
+                     project.tasks.filter( t => t.state===1).length / project.tasks.length * 100
                 }/>
             <Chip className="text-purple-800 bg-purple-100 rounded-lg"
                 label={
-                    "ESTIMATED DEADLINE : " + project.deadline
+                    "ESTIMATED DEADLINE : " + project.expectedDeadLine
                 }/>
 
         </Paper>

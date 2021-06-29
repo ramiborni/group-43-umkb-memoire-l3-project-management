@@ -23,6 +23,10 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import {InferGetStaticPropsType} from "next";
 import CloseIcon from '@material-ui/icons/Close';
 import {Alert} from '@material-ui/lab'
+import { useRecoilState } from 'recoil'
+import {userState} from './../state'
+import User from '../models/User'
+
 
 /**
  * CREATED By Borni Ahmed Rami ( borniahmedrami@gmail.com / github : @rikiraspoutine ) in 04/29/2021 
@@ -36,16 +40,30 @@ export default function Home(props : InferGetStaticPropsType < typeof getStaticP
     const router = useRouter()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [user,setUser] = useRecoilState(userState)
 
     const [open, setOpen] = useState(false)
+    const [textSnack , setTextSnack] = useState('')
 
 
     const login = () => {
         if (!(username && password)) {
+            setTextSnack('Both of username & password shouldn\'t be empty');
             setOpen(true);
 
         } else {
-            router.push('/dashboard');
+            //const loggedUser = User.login(username,password)
+            const loggedUser = User.login(username,password)
+            if(loggedUser){
+                setUser(loggedUser)
+                router.push('/dashboard');
+            }else{
+                setTextSnack('Username or password are wrong, please check your information');
+                setOpen(true);
+            }
+              
+            
+              
         }
 
     }
@@ -86,7 +104,7 @@ export default function Home(props : InferGetStaticPropsType < typeof getStaticP
                                     justify="center"
                                     alignItems="center">
                                     <Grid item
-                                        xs={10}
+                                        xs={12}
                                         className="space-y-5">
                                         <Typography className="font-bold" variant="h4">
                                             {
@@ -96,10 +114,7 @@ export default function Home(props : InferGetStaticPropsType < typeof getStaticP
                                             t('welcome')
                                         } </Typography>
                                     </Grid>
-                                    <Grid className="hidden md:block" justify="flex-end" item
-                                        md={2}>
-                                        <img className="m-auto" height="50" width="50" src="logo-non-text.jpg"/>
-                                    </Grid>
+                                    
                                 </Grid>
                                 <form className="space-y-5">
                                     <TextField placeholder={
@@ -143,6 +158,7 @@ export default function Home(props : InferGetStaticPropsType < typeof getStaticP
                                         name="password"
                                         variant="outlined"
                                         key="password"
+                                        type="password"
                                         fullWidth
                                         required
                                         label={
@@ -188,7 +204,7 @@ export default function Home(props : InferGetStaticPropsType < typeof getStaticP
                     }
                     autoHideDuration={6000}>
                     <Alert variant="filled" onClose={handleClose} severity="error">
-                        Both of username & password shouldn't be empty
+                        {textSnack}
                     </Alert>
                 </Snackbar>
             </LoginLayout>

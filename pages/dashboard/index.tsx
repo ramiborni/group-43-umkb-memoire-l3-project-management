@@ -26,58 +26,12 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 const localizer = momentLocalizer(moment)
-
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {userState, projectState} from './../../state'
 
 const index = () => {
 
     const {t} = useTranslation('dashboard');
-    const files = [
-        {
-            "filename": "plan-B.pdf",
-            "subject": "Google Pixel 4 Marketing",
-            "date": "2021-01-01"
-        }, {
-            "filename": "plan-A.docx",
-            "subject": "Google Pixel 4 Marketing",
-            "date": "2021-02-01"
-        }, {
-            "filename": "funding-details.xlsx",
-            "subject": "Hello world Project",
-            "date": "2021-03-01"
-        },
-    ]
-    const projects = [
-        {
-            "projectName":"Google Pixel 6 Marketing",
-            "company":"Google inc"
-        },
-        {
-            "projectName":"Hello world Project",
-            "company":"Rakm Conseil"
-        },
-        {
-            "projectName" : "Windows Next Gen",
-            "company": "Microsoft inc"
-        }
-    ]
-    const latestProject = {
-        title: 'Hello world Project',
-        company: 'Rakm Conseil',
-        type: 'App design & developement',
-        periority: 2,
-        totalTasks: 50,
-        progressedTasks: 32,
-        deadline: '25/10/2021'
-    }
-    const latestImpProject = {
-        title: 'Google Pixel 6 Marketing',
-        company: 'Google',
-        type: 'Marketing',
-        periority: 1,
-        totalTasks: 182,
-        progressedTasks: 156,
-        deadline: '13/08/2021'
-    }
 
     const events = [{
             start: moment().toDate(),
@@ -85,10 +39,15 @@ const index = () => {
             title: "Presentation"
         }];
 
+
+
+    const user= useRecoilValue(userState)
+    const projects = useRecoilValue(projectState)
+
     return (
         <DashboardLayout>
             <div className="h-5"></div>
-            <WelcomeUser/>
+            <WelcomeUser user={user}/>
             <Grid container className="mt-10">
                 <Grid item
                     xs={12}
@@ -107,17 +66,17 @@ const index = () => {
                                     </Avatar>
                                 </ListItemIcon>
                                 <ListItemText primary={
-                                        project.projectName
+                                        project.name
                                     }
                                     secondary={
-                                        project.company
+                                        project.module.moduleName
                                     }/>
 
                             </ListItem>)
                         } </List>
 
                     </Paper>
-                    <ProjectDashboardCard project={latestImpProject}/>
+                    <ProjectDashboardCard project={projects[0]}/>
 
                 </Grid>
                 <Grid item
@@ -125,28 +84,10 @@ const index = () => {
                     md={6}
                     lg={4}
                     className="space-y-5 p-2">
-                    <ProjectDashboardCard project={latestProject}/>
+                    <ProjectDashboardCard project={projects[1]}/>
 
-                    <Paper elevation={0} className="p-4 rounded-xl space-y-5 shadow-sm">
-                        <Typography variant="h5">Latest Files</Typography>
-                        <List> {
-                            files.map((file, i) => <ListItem className="rounded-xl" button
-                                key={i}>
-                                <ListItemIcon>
-                                    <Avatar color="primary">
-                                        <FolderIcon className="text-white"/>
-                                    </Avatar>
-                                </ListItemIcon>
-                                <ListItemText primary={
-                                        file.filename
-                                    }
-                                    secondary={
-                                        file.subject
-                                    }/>
+                    <ProjectDashboardCard project={projects[2]}/>
 
-                            </ListItem>)
-                        } </List>
-                    </Paper>
 
                 </Grid>
                 <Grid item

@@ -21,11 +21,11 @@ import { AccountCircle } from '@material-ui/icons';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import {motion} from 'framer-motion';
-import {useTranslation} from 'next-i18next';
-import {useRouter} from 'next/router';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
-import React, {ReactNode} from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import GeneralHead from '../public/heads/GeneralHead';
 import NotificationsNoneRoundedIcon from '@material-ui/icons/NotificationsNoneRounded';
 import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
@@ -37,42 +37,44 @@ import UserCardHorizantal from '../specified/dashboard/layout/UserCardHorizantal
 import User from '../../models/User';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 import SettingsApplicationsRoundedIcon from '@material-ui/icons/SettingsApplicationsRounded';
-const drawerItems=[
-  {
-    name:'Dashboard',
-    path:'',
-    icon: <DashboardRoundedIcon/>
-  },
-  {
-    name:'Projects',
-    path:'/projects',
-    icon: <BusinessCenterRoundedIcon/>
-  },
-  /*{
-    name:'Tasks',
-    path:'/tasks',
-    icon: <AssignmentRoundedIcon/>
-  },
-  {
-    name:'Requests',
-    path:'/requests',
-    icon: <AllInboxRoundedIcon/>
-  },
-  {
-    name:'Calendar',
-    path:'/calendar',
-    icon: <EventNoteRoundedIcon/>
-  },
-  {
-    name:'Reports',
-    path:'/reports',
-    icon: <PollRoundedIcon/>
-  },*/
-  {
-      name :"Settings",
-      path:'/settings',
-      icon:<SettingsApplicationsRoundedIcon/>
-  }
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from '../../state';
+const drawerItems = [
+    {
+        name: 'Dashboard',
+        path: '',
+        icon: <DashboardRoundedIcon />
+    },
+    {
+        name: 'Projects',
+        path: '/projects',
+        icon: <BusinessCenterRoundedIcon />
+    },
+    /*{
+      name:'Tasks',
+      path:'/tasks',
+      icon: <AssignmentRoundedIcon/>
+    },
+    {
+      name:'Requests',
+      path:'/requests',
+      icon: <AllInboxRoundedIcon/>
+    },
+    {
+      name:'Calendar',
+      path:'/calendar',
+      icon: <EventNoteRoundedIcon/>
+    },
+    {
+      name:'Reports',
+      path:'/reports',
+      icon: <PollRoundedIcon/>
+    },*/
+    {
+        name: "Settings",
+        path: '/settings',
+        icon: <SettingsApplicationsRoundedIcon />
+    }
 ]
 
 const drawerWidth = 240;
@@ -85,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
         drawer: {
             [theme.breakpoints.up('lg')]: {
                 width: drawerWidth,
-                
+
             },
             flexShrink: 0,
         },
@@ -109,37 +111,47 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     })
 );
-const DashboardLayout = ({children}: { children: ReactNode }) => {
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
-    const {t} = useTranslation('dashboard');
+    const { t } = useTranslation('dashboard');
     const router = useRouter();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const classes = useStyles();
+
+    const user= useRecoilValue(userState)
+
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
+    useEffect(()=>{
+        console.log(user)
+        if(!user.username){
+            router.push('/');
+        }
+    })
+
     const drawer = (
         <div>
-                  <Toolbar />
+            <Toolbar />
             <div className="my-3 p-1">
-               <UserCardHorizantal userDetails={new User('riki','Borni','Ahmed Rami','test@tset.tset')}/>
+                <UserCardHorizantal userDetails={user} />
 
             </div>
-            <Divider/>
+            <Divider />
 
             <List className="p-3">
                 {drawerItems.map((item, index) => (
-                   <Link key={item.path+'_'+index} href={'/dashboard'+item.path}>
-                     <ListItem selected={router.pathname==='/dashboard'+item.path} className="rounded-xl" button key={index+'-'+item.name}>
-                        <ListItemIcon>{item.icon}</ListItemIcon>
-                        <ListItemText primary={item.name}/>
-                     </ListItem>
-                   </Link>
+                    <Link key={item.path + '_' + index} href={'/dashboard' + item.path}>
+                        <ListItem selected={router.pathname === '/dashboard' + item.path} className="rounded-xl" button key={index + '-' + item.name}>
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary={item.name} />
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
-           
+
         </div>
     );
 
@@ -161,27 +173,25 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
             }}>
                 <AppBar position="fixed" className={classes.appBar} color="primary" elevation={0}>
                     <Toolbar className="space-x-5">
-                       
-                        <IconButton  className={classes.menuButton} edge="start" color="inherit" aria-label="open drawer"
-                                    onClick={() => handleDrawerToggle()}>
-                            <MenuIcon/>
+
+                        <IconButton className={classes.menuButton} edge="start" color="inherit" aria-label="open drawer"
+                            onClick={() => handleDrawerToggle()}>
+                            <MenuIcon />
                         </IconButton>
                         <Hidden mdDown implementation="css">
-                        <Typography variant="h5">
-                             {t('dashboard')}
-                        </Typography>
-                        
-                        
+                            <Typography variant="h5">
+                                {t('dashboard')}
+                            </Typography>
+
+
                         </Hidden>
                         <span className="flex-grow text-right">
-                          
-                          <IconButton>
-                            <NotificationsNoneRoundedIcon className="text-white"></NotificationsNoneRoundedIcon>
-                          </IconButton>
-                          <IconButton>
-                            <AccountCircle className="text-white"></AccountCircle>
-                          </IconButton>
-                          
+
+                           
+                            <IconButton>
+                                <AccountCircle className="text-white"></AccountCircle>
+                            </IconButton>
+
                         </span>
 
                     </Toolbar>
@@ -199,7 +209,7 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
                             ModalProps={{
                                 keepMounted: true
                             }}
-                            
+
                         >
                             {drawer}
                         </Drawer>
@@ -217,11 +227,11 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
                     </Hidden>
 
                 </nav>
-                <main className={classes.content +' lg:ml-60'}>
-                  <Toolbar />
-                  {children}  
+                <main className={classes.content + ' lg:ml-60'}>
+                    <Toolbar />
+                    {children}
                 </main>
-                
+
             </motion.div>
         </>
 

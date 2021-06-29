@@ -14,7 +14,7 @@ const ProjectCard = ( {project}) => {
                           
                             <Typography variant="h6" className="truncate">
                                 {
-                                project.title
+                                project.name
                             }</Typography>
                           
                             <Typography variant="caption">
@@ -26,49 +26,35 @@ const ProjectCard = ( {project}) => {
                                 style={
                                     {listStyle: 'none'}
                             }>
-                                <li>
-                                    <Chip color='primary' icon={<BusinessRoundedIcon/>} label={project.company}></Chip>
-                                </li>
+                                
 
-                                <li>
-                                    <Chip icon={<LinkRoundedIcon/>}
-                                        label={
-                                            project.docs
-                                        }
-                                        color='primary'></Chip>
-                                </li>
+                               
                                 <li>
                                     <Chip icon={<AssignmentRoundedIcon/>}
                                         label={
-                                            project.progressedTasks + '/' + project.totalTasks
+                                            project.tasks.filter(t => t.state===1).length + '/' + project.tasks.length
                                         }
                                         color='primary'></Chip>
                                 </li>
-                                
-                            </ul>
-                            <ul className="flex space-x-2" style={{listStyle: 'none'}}>
-                            <Chip icon={<AccountCircleRoundedIcon/>}
-                                        label={
-                                            project.employers
-                                        }
-                                        color='primary'></Chip>
-                            <li>
+                                <li>
                                     <Chip icon={<EventNoteRoundedIcon className="text-red-500"/>}
                                         label={
-                                            project.deadline
+                                            project.expectedDeadLine
                                         }
                                         className="bg-red-100 text-red-500"></Chip>
 
                                 </li>
+                                
                             </ul>
+                          
 
 
                             <Grid container alignItems="center" spacing={2}>
                                 <Grid item xs={9} md={10} lg={9}>
-                                    <LinearProgress className="h-2 rounded-xl" variant="determinate" value={project.progressedTasks / project.totalTasks*100} />
+                                    <LinearProgress className="h-2 rounded-xl" variant="determinate" value={project.tasks.filter(t => t.state===1).length / project.tasks.length*100} />
                                 </Grid>
                                 <Grid item xs={3} md={2} lg={3} className="text-center">
-                                    <Typography className="font-bold">{Math.round(project.progressedTasks / project.totalTasks*100)} %</Typography>
+                                    <Typography className="font-bold">{Math.round(project.tasks.filter(t => t.state===1).length / project.tasks.length*100)} %</Typography>
                                 </Grid>
 
                             </Grid>
