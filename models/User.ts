@@ -20,10 +20,10 @@ class User {
         return true
     }
 
-    static login(username: String, password: String): User{
+    static login(username: String, password: String){
        const db =  usersDB
        console.log(db)
-       const user : User =  db.find( u => u.username === username )
+       const user  =  db.find( u => u.username === username )
        return user;
     }
     logout(): void{
