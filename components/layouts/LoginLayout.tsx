@@ -2,7 +2,7 @@ import React, {ReactNode} from "react"
 import LoginStyles from "../../styles/components/LoginLayout.module.css"
 import {useTranslation} from "next-i18next"
 import { Container } from "@material-ui/core"
-const LoginLayout = ({children:React.ReactNode}) => {
+const LoginLayout = ({children}) => {
 
     const {t} = useTranslation('common')
     return (
